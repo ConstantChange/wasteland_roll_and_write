@@ -753,6 +753,13 @@ export default function WastelandScavenger() {
     .grid-cols-15 { grid-template-columns: repeat(15, minmax(0, 1fr)); }
     .grid-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
     .grid-cols-17 { grid-template-columns: repeat(17, minmax(0, 1fr)); }
+    /* Tailwind's default scale stops at 12 columns, so these counts are ours and
+       Tailwind never emits a responsive variant for them. The zone track uses
+       lg:grid-cols-17, which needs the breakpoint spelled out here or it silently
+       stays at 9 columns on wide screens. */
+    @media (min-width: 1024px) {
+      .lg\\:grid-cols-17 { grid-template-columns: repeat(17, minmax(0, 1fr)); }
+    }
   `;
 
   /* ------------------------------------------------------------------ render */
