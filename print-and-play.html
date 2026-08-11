@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wasteland Scavenger — Print &amp; Play Sheet (v17)</title>
+<style>
+/* ===========================================================================
+   WASTELAND SCAVENGER · one-sheet print & play
+   ---------------------------------------------------------------------------
+   Sized 194 x 262mm, which fits inside BOTH A4 (210x297) and US Letter
+   (216x279) at 8mm margins, so one file prints correctly on either.
+
+   Deliberately ink-frugal: the app is dark-themed, but a sheet you print for
+   every game must not flood a cartridge. White ground, hairline rules, tint
+   only on section headers. Everything reads in pure black and white — the
+   oxide accent carries no information a greyscale printer would lose.
+   ========================================================================= */
+
+:root{
+  --ink:#17130f;          /* warm near-black                      */
+  --ink-soft:#5c5147;     /* secondary text                       */
+  --rule:#a89684;         /* hairline                             */
+  --rule-strong:#17130f;
+  --tint:#f3ede4;         /* header fill                          */
+  --tint-deep:#e5dacb;
+  --oxide:#9a3412;        /* hazard / accent, greyscale-safe      */
+  --paper:#ffffff;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#4a4038;color:var(--ink);}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:7.2pt;line-height:1.28;
+  -webkit-font-smoothing:antialiased;
+}
+.cond{
+  font-family:"Arial Narrow","Liberation Sans Narrow","Helvetica Neue",
+    "Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-stretch:condensed;
+  text-transform:uppercase;letter-spacing:.055em;font-weight:700;
+}
+.num{font-variant-numeric:tabular-nums;}
+
+/* --- the sheet ---------------------------------------------------------- */
+.sheet{
+  width:194mm;height:262mm;background:var(--paper);
+  margin:6mm auto;padding:0;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:1.3mm;
+  padding:4mm;
+  box-shadow:0 2mm 8mm rgba(0,0,0,.45);
+}
+
+/* --- generic panel ------------------------------------------------------ */
+.p{border:.35mm solid var(--rule-strong);display:flex;flex-direction:column;min-height:0;}
+.p > .hd{
+  background:var(--tint);border-bottom:.25mm solid var(--rule);
+  padding:.7mm 1.4mm;font-size:6.6pt;display:flex;justify-content:space-between;
+  align-items:baseline;gap:2mm;
+}
+.hd .dice{font-weight:400;letter-spacing:.03em;color:var(--ink-soft);}
+.p > .bd{padding:1.2mm;display:flex;flex-direction:column;gap:1mm;flex:1;min-height:0;}
+
+/* --- boxes -------------------------------------------------------------- */
+.row{display:flex;gap:.9mm;align-items:center;}
+.bx{
+  width:4.7mm;height:4.7mm;border:.3mm solid var(--rule-strong);
+  display:flex;align-items:center;justify-content:center;
+  font-size:6.4pt;font-weight:700;flex:none;
+  font-variant-numeric:tabular-nums;
+}
+.bx.sm{width:3.9mm;height:3.9mm;font-size:5.6pt;}
+.bx.wide{width:auto;min-width:9mm;padding:0 1mm;}
+.bx.tall{height:6.4mm;}
+.bx .sub{font-size:4.6pt;font-weight:400;color:var(--ink-soft);}
+.stack{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.02;}
+.lab{width:13mm;flex:none;font-size:6.4pt;}
+.tick{width:3.2mm;height:3.2mm;border:.28mm solid var(--rule-strong);flex:none;}
+
+/* --- masthead ----------------------------------------------------------- */
+.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:3mm;
+  border-bottom:.7mm solid var(--rule-strong);padding-bottom:.8mm;}
+.mast h1{margin:0;font-size:19pt;letter-spacing:.10em;line-height:.92;}
+.mast .sub{font-size:6.4pt;color:var(--ink-soft);letter-spacing:.10em;margin-top:.6mm;}
+.mast .meta{text-align:right;font-size:6.2pt;color:var(--ink-soft);}
+.mast .meta b{color:var(--ink);}
+
+/* --- top strip ---------------------------------------------------------- */
+.strip{display:grid;grid-template-columns:1fr auto;gap:1.6mm;}
+.days{display:flex;gap:1mm;}
+.day{width:9.6mm;border:.3mm solid var(--rule-strong);text-align:center;}
+.day .n{font-size:7pt;font-weight:700;border-bottom:.25mm solid var(--rule);}
+.day .u{height:4.4mm;display:flex;align-items:center;justify-content:center;font-size:5pt;color:var(--ink-soft);}
+.day.raid .n{background:var(--oxide);color:#fff;}
+.day.raid .u{font-weight:700;color:var(--oxide);}
+
+/* --- two-column body ---------------------------------------------------- */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1.6mm;}
+.grid7{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6mm;}
+
+/* --- exploration -------------------------------------------------------- */
+.zones{display:flex;gap:.8mm;}
+.zone{flex:1;border:.3mm solid var(--rule-strong);text-align:center;position:relative;}
+.zone .z{font-size:7.4pt;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;}
+.zone .vp{font-size:4.8pt;color:var(--ink-soft);border-top:.2mm solid var(--rule);}
+.zone .rad{height:3.1mm;display:flex;align-items:center;justify-content:center;}
+.zone .radc{width:2.7mm;height:2.7mm;border:.25mm dotted var(--oxide);border-radius:50%;}
+.zone.gem{background:var(--tint);}
+.zone.gem .z::after{content:"◆";font-size:4.4pt;vertical-align:super;color:var(--oxide);}
+.bands{display:flex;gap:.8mm;margin-top:.5mm;}
+.band{border-top:.3mm solid var(--oxide);text-align:center;font-size:5.4pt;color:var(--oxide);padding-top:.3mm;}
+
+/* --- rules -------------------------------------------------------------- */
+.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2mm;font-size:6.2pt;line-height:1.25;flex:1;min-height:0;}
+.rules h3{margin:0 0 .7mm;font-size:6.8pt;border-bottom:.3mm solid var(--rule-strong);padding-bottom:.4mm;}
+.rules h3 + p, .rules h3 + ul{margin-top:0;}
+.rules p{margin:0 0 .85mm;}
+.rules ul{margin:0 0 .8mm;padding-left:2.4mm;}
+.rules li{margin-bottom:.4mm;}
+.rules b{font-weight:700;}
+.rules .k{font-variant-numeric:tabular-nums;}
+.warn{color:var(--oxide);font-weight:700;}
+.tbl{width:100%;border-collapse:collapse;margin-bottom:.8mm;}
+.tbl td{border-bottom:.2mm solid var(--rule);padding:.4mm 0;vertical-align:top;}
+.tbl td:first-child{width:6.5mm;font-weight:700;font-variant-numeric:tabular-nums;}
+
+/* --- score -------------------------------------------------------------- */
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:0 2.6mm;font-size:6.4pt;}
+.sl{display:flex;justify-content:space-between;align-items:baseline;gap:1.2mm;
+  border-bottom:.2mm dotted var(--rule);padding:.42mm 0;}
+.sl .v{width:9mm;border-bottom:.3mm solid var(--rule-strong);flex:none;height:2.7mm;}
+.sl.tot{border-bottom:none;margin-top:.8mm;}
+.sl.tot .v{height:4.6mm;border:.35mm solid var(--rule-strong);width:14mm;}
+.par{font-size:5.8pt;color:var(--ink-soft);margin-top:.8mm;}
+
+.foot{display:flex;justify-content:space-between;font-size:5.4pt;color:var(--ink-soft);
+  border-top:.25mm solid var(--rule);padding-top:.8mm;}
+
+/* --- screen-only affordances ------------------------------------------- */
+.hint{max-width:194mm;margin:6mm auto 0;color:#e8dfd4;font-size:9pt;line-height:1.5;}
+.hint b{color:#fff;}
+.hint button{
+  font:inherit;font-weight:700;background:#f3ede4;color:#17130f;border:0;
+  padding:2mm 4mm;border-radius:1mm;cursor:pointer;margin-top:2mm;
+}
+.hint button:hover{background:#fff;}
+:focus-visible{outline:2px solid #f3ede4;outline-offset:2px;}
+
+@media print{
+  @page{size:auto;margin:8mm;}
+  html,body{background:#fff;}
+  .hint{display:none;}
+  /* Pin the width in print too. With width:auto the sheet stretches to the paper's
+     content box, so A4 and Letter would lay out differently and the rules columns
+     would reflow to a different height on each. 194mm is the widest that fits
+     inside A4 at 8mm margins; Letter simply centres it. */
+  .sheet{margin:0 auto;box-shadow:none;width:194mm;height:auto;padding:0;}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+</style>
+</head>
+<body>
+
+<div class="hint">
+  <b>Wasteland Scavenger — one-sheet print &amp; play.</b> One page, fits A4 and US Letter.
+  You need: this sheet, a pencil, and <b>three six-sided dice</b>. Solo, about 25 minutes.
+  <br><button onclick="window.print()">Print this sheet</button>
+</div>
+
+<div class="sheet">
+
+  <!-- ================================================== masthead -->
+  <div class="mast">
+    <div>
+      <h1 class="cond">Wasteland Scavenger</h1>
+      <div class="sub cond">Daily Ration &amp; Salvage Log · 12 Days · 3 Dice · One Survivor</div>
+    </div>
+    <div class="meta cond">
+      Survivor <b>_____________</b><br>
+      Date <b>__________</b> · Score <b>________</b>
+    </div>
+  </div>
+
+  <!-- ================================================== day track + rad -->
+  <div class="strip">
+    <div class="p">
+      <div class="hd"><span class="cond">Day Track — cross off each day as it ends</span>
+        <span class="dice">Every day: pay 1 Food or Water upkeep</span></div>
+      <div class="bd">
+        <div class="days num">
+          <div class="day"><div class="n">1</div><div class="u">upkeep</div></div>
+          <div class="day"><div class="n">2</div><div class="u">upkeep</div></div>
+          <div class="day"><div class="n">3</div><div class="u">upkeep</div></div>
+          <div class="day raid"><div class="n">4</div><div class="u">RAID 2</div></div>
+          <div class="day"><div class="n">5</div><div class="u">upkeep</div></div>
+          <div class="day"><div class="n">6</div><div class="u">upkeep</div></div>
+          <div class="day"><div class="n">7</div><div class="u">upkeep</div></div>
+          <div class="day raid"><div class="n">8</div><div class="u">RAID 4</div></div>
+          <div class="day"><div class="n">9</div><div class="u">upkeep</div></div>
+          <div class="day"><div class="n">10</div><div class="u">upkeep</div></div>
+          <div class="day"><div class="n">11</div><div class="u">upkeep</div></div>
+          <div class="day raid"><div class="n">12</div><div class="u">RAID 6</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="p">
+      <div class="hd"><span class="cond">Radiation</span><span class="dice">4th = dead</span></div>
+      <div class="bd">
+        <div class="row">
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx" style="border-color:var(--oxide);color:var(--oxide);">☠</div>
+          <span style="font-size:5.6pt;color:var(--ink-soft);">each −10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================== stores + built -->
+  <div class="cols">
+    <div class="p">
+      <div class="hd"><span class="cond">Stores</span>
+        <span class="dice">gain = ╱ · spend = ✕ over it</span></div>
+      <div class="bd">
+        <div class="row"><span class="lab cond">Water <span style="font-weight:400;">3vp</span></span>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div></div>
+        <div class="row"><span class="lab cond">Food <span style="font-weight:400;">4vp</span></span>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div></div>
+        <div class="row"><span class="lab cond">Scrap <span style="font-weight:400;">2vp</span></span>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div></div>
+        <div class="row"><span class="lab cond">Fuel <span style="font-weight:400;">5vp</span></span>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+          <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div></div>
+        <div style="font-size:5.6pt;color:var(--ink-soft);">Start: slash <b>2 Water</b> and <b>2 Food</b>.</div>
+      </div>
+    </div>
+
+    <div class="cols" style="gap:1.6mm;">
+      <div class="p">
+        <div class="hd"><span class="cond">Structures</span><span class="dice">max 2</span></div>
+        <div class="bd" style="gap:.8mm;">
+          <div class="row"><div class="tick"></div><span><b>Water Collector</b> · 2 Scrap<br>
+            <span style="color:var(--ink-soft);">+1 Water, every day</span></span></div>
+          <div class="row"><div class="tick"></div><span><b>Scrap Recycler</b> · 1 Fuel<br>
+            <span style="color:var(--ink-soft);">+1 Scrap, every day</span></span></div>
+          <div class="row"><div class="tick"></div><span><b>Food Garden</b> · 3 Scrap<br>
+            <span style="color:var(--ink-soft);">+1 Food, even days only</span></span></div>
+          <div class="row"><div class="tick"></div><span><b>Fuel Refinery</b> · 4 Scrap<br>
+            <span style="color:var(--ink-soft);">+1 Fuel, even days only</span></span></div>
+          <div style="font-size:5.4pt;color:var(--ink-soft);border-top:.2mm solid var(--rule);padding-top:.6mm;">
+            2nd build needs a marked Shelter and costs <b>+1</b>.</div>
+        </div>
+      </div>
+      <div class="p">
+        <div class="hd"><span class="cond">Toolbelt</span><span class="dice">tick to spend</span></div>
+        <div class="bd" style="gap:1mm;">
+          <div><b>Wrench</b> <span style="color:var(--ink-soft);">±1 to a die</span>
+            <div class="row" style="margin-top:.5mm;">
+              <div class="tick"></div><div class="tick"></div><div class="tick"></div>
+              <div class="tick"></div><div class="tick"></div><div class="tick"></div></div></div>
+          <div><b>Multitool</b> <span style="color:var(--ink-soft);">reroll a die</span>
+            <div class="row" style="margin-top:.5mm;">
+              <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div></div></div>
+          <div><b>Lucky Charm</b> <span style="color:var(--ink-soft);">reroll all unspent</span>
+            <div class="row" style="margin-top:.5mm;"><div class="tick"></div><div class="tick"></div></div></div>
+          <div style="border-top:.2mm solid var(--rule);padding-top:.7mm;">
+            <b>Scout tokens</b> <span style="color:var(--ink-soft);">max 3</span>
+            <div class="row" style="margin-top:.5mm;"><div class="tick"></div><div class="tick"></div><div class="tick"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================== dice sections -->
+  <div class="grid7">
+    <div class="p">
+      <div class="hd"><span class="cond">Scrap</span><span class="dice">1 die · 3vp</span></div>
+      <div class="bd"><div class="row" style="justify-content:space-between;">
+        <div class="bx">1</div><div class="bx">2</div><div class="bx">3</div>
+        <div class="bx">4</div><div class="bx">5</div><div class="bx">6</div></div>
+        <div style="font-size:5.4pt;color:var(--ink-soft);">Die shows N → mark N. Gain 1 Scrap.</div></div>
+    </div>
+
+    <div class="p">
+      <div class="hd"><span class="cond">Water</span><span class="dice">2 dice · 7vp</span></div>
+      <div class="bd"><div class="row" style="justify-content:space-between;">
+        <div class="bx">1</div><div class="bx">2</div><div class="bx">3</div>
+        <div class="bx">4</div><div class="bx">5</div><div class="bx">6</div></div>
+        <div style="font-size:5.4pt;color:var(--ink-soft);">A pair of N → mark N. Gain 1 Water.</div></div>
+    </div>
+
+    <div class="p">
+      <div class="hd"><span class="cond">Fuel</span><span class="dice">3 dice · 12vp</span></div>
+      <div class="bd"><div class="row" style="justify-content:space-between;">
+        <div class="bx tall"><span class="stack">1<span class="sub">1–3</span></span></div>
+        <div class="bx tall"><span class="stack">2<span class="sub">1–3</span></span></div>
+        <div class="bx tall"><span class="stack">3<span class="sub">2–4</span></span></div>
+        <div class="bx tall"><span class="stack">4<span class="sub">3–5</span></span></div>
+        <div class="bx tall"><span class="stack">5<span class="sub">4–6</span></span></div>
+        <div class="bx tall"><span class="stack">6<span class="sub">4–6</span></span></div></div>
+        <div style="font-size:5.4pt;color:var(--ink-soft);">Two dice show N &amp; all three inside N's range. Gain 1 Fuel.</div></div>
+    </div>
+
+    <div class="p">
+      <div class="hd"><span class="cond">Food</span><span class="dice">3 dice · 11vp</span></div>
+      <div class="bd"><div class="row" style="justify-content:space-between;">
+        <div class="bx wide">1·2·3</div><div class="bx wide">2·3·4</div>
+        <div class="bx wide">3·4·5</div><div class="bx wide">4·5·6</div></div>
+        <div style="font-size:5.4pt;color:var(--ink-soft);">A run of three. Gain 1 Food.</div></div>
+    </div>
+
+    <div class="p" style="grid-column:span 2;">
+      <div class="hd"><span class="cond">Scout — sum of two dice</span><span class="dice">2 dice · 7vp each · +1 Scout token</span></div>
+      <div class="bd"><div class="row" style="justify-content:space-between;">
+        <div class="bx">2</div><div class="bx">3</div><div class="bx">4</div><div class="bx">5</div>
+        <div class="bx">6</div><div class="bx">7</div><div class="bx">8</div><div class="bx">9</div>
+        <div class="bx">10</div><div class="bx">11</div><div class="bx">12</div></div></div>
+    </div>
+
+    <div class="p">
+      <div class="hd"><span class="cond">Fortify</span><span class="dice">1 die, any value</span></div>
+      <div class="bd"><div class="row" style="justify-content:space-between;">
+        <div class="bx tall"><span class="stack">1<span class="sub">−1</span></span></div>
+        <div class="bx tall"><span class="stack">2<span class="sub">−1</span></span></div>
+        <div class="bx tall"><span class="stack">3<span class="sub">−1</span></span></div>
+        <div class="bx tall"><span class="stack">4<span class="sub">+10</span></span></div></div>
+        <div style="font-size:5.4pt;color:var(--ink-soft);">Left to right. 2vp each. First three cut every raid by 1.</div></div>
+    </div>
+
+    <div class="p">
+      <div class="hd"><span class="cond">Shelter</span><span class="dice">3 dice · 15vp</span></div>
+      <div class="bd"><div class="row" style="justify-content:space-between;">
+        <div class="bx sm">12</div><div class="bx sm">13</div><div class="bx sm">14</div><div class="bx sm">15</div>
+        <div class="bx sm">16</div><div class="bx sm">17</div><div class="bx sm">18</div></div>
+        <div style="font-size:5.4pt;color:var(--ink-soft);">Sum of all three. Each cuts every raid by 1 and unlocks a structure slot.</div></div>
+    </div>
+  </div>
+
+  <!-- ================================================== exploration -->
+  <div class="p">
+    <div class="hd"><span class="cond">Exploration — strictly in order · dice must sum exactly to the zone</span>
+      <span class="dice">1–3 dice · each zone scores its own number · ◆ and ☢ pay Treasure</span></div>
+    <div class="bd">
+      <div class="zones num">
+        <div class="zone"><div class="z">2</div><div class="rad"></div><div class="vp">2vp</div></div>
+        <div class="zone"><div class="z">3</div><div class="rad"><div class="radc"></div></div><div class="vp">3vp</div></div>
+        <div class="zone"><div class="z">4</div><div class="rad"><div class="radc"></div></div><div class="vp">4vp</div></div>
+        <div class="zone"><div class="z">5</div><div class="rad"><div class="radc"></div></div><div class="vp">5vp</div></div>
+        <div class="zone gem"><div class="z">6</div><div class="rad"><div class="radc"></div></div><div class="vp">6vp</div></div>
+        <div class="zone"><div class="z">7</div><div class="rad"><div class="radc"></div></div><div class="vp">7vp</div></div>
+        <div class="zone"><div class="z">8</div><div class="rad"><div class="radc"></div></div><div class="vp">8vp</div></div>
+        <div class="zone"><div class="z">9</div><div class="rad"><div class="radc"></div></div><div class="vp">9vp</div></div>
+        <div class="zone"><div class="z">10</div><div class="rad"><div class="radc"></div></div><div class="vp">10vp</div></div>
+        <div class="zone"><div class="z">11</div><div class="rad"><div class="radc"></div></div><div class="vp">11vp</div></div>
+        <div class="zone gem"><div class="z">12</div><div class="rad"><div class="radc"></div></div><div class="vp">12vp</div></div>
+        <div class="zone"><div class="z">13</div><div class="rad"><div class="radc"></div></div><div class="vp">13vp</div></div>
+        <div class="zone"><div class="z">14</div><div class="rad"><div class="radc"></div></div><div class="vp">14vp</div></div>
+        <div class="zone"><div class="z">15</div><div class="rad"><div class="radc"></div></div><div class="vp">15vp</div></div>
+        <div class="zone"><div class="z">16</div><div class="rad"><div class="radc"></div></div><div class="vp">16vp</div></div>
+        <div class="zone gem"><div class="z">17</div><div class="rad"><div class="radc"></div></div><div class="vp">17vp</div></div>
+        <div class="zone"><div class="z">18</div><div class="rad"><div class="radc"></div></div><div class="vp">18vp</div></div>
+      </div>
+      <div class="bands cond">
+        <div class="band" style="flex:1.06;visibility:hidden;">·</div>
+        <div class="band" style="flex:5.3;">Band A — one ☢ here</div>
+        <div class="band" style="flex:5.3;">Band B — one ☢ here</div>
+        <div class="band" style="flex:6.4;">Band C — one ☢ here</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================== rules -->
+  <div class="rules">
+
+    <div>
+      <h3 class="cond">Setup</h3>
+      <p>Slash <b>2 Water</b> and <b>2 Food</b> in Stores. Then place radiation: roll one die
+      three times, once per band, and fill the dotted circle under that zone.</p>
+      <table class="tbl">
+        <tr><td>A</td><td>1–5 = zone 3,4,5,6,7 · reroll a 6</td></tr>
+        <tr><td>B</td><td>1–5 = zone 8,9,10,11,12 · reroll a 6</td></tr>
+        <tr><td>C</td><td>1–6 = zone 13…18</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Two players wanting a fair race should use the same
+      three ☢ zones and compare final scores.</p>
+
+      <h3 class="cond">Your Day, in order</h3>
+      <ul>
+        <li><b>Produce</b> from structures built on an <i>earlier</i> day.</li>
+        <li><b>Build / Barter / Decontaminate</b> — before you roll only.</li>
+        <li><b>Roll 3 dice.</b></li>
+        <li><b>Modify</b> dice as much as you can pay for.</li>
+        <li><b>Spend all 3 dice</b> — every die goes somewhere.</li>
+        <li><b>Raiders</b> on days 4, 8 and 12.</li>
+        <li><b>Upkeep:</b> cross off 1 Food or Water.</li>
+        <li>Cross off the day.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="cond">Spending Dice</h3>
+      <p>Each die is spent exactly once, on one section. You may split them however
+      you like — three 1-die plays, or a 2 and a 1, or all three together.</p>
+      <p><b>Stuck?</b> Fortify takes a die of <i>any</i> value. Once per day you may also
+      <b>strip 2 unspent dice for 1 Scrap</b>. If you truly cannot place a die, abandon
+      the day: cross off all remaining dice and <span class="warn">take 1 Radiation</span>.</p>
+
+      <h3 class="cond">Exploring</h3>
+      <p>Zones must be taken in order. Your chosen dice must total the zone number
+      <b>exactly</b>. Mark it and take a <b>Find roll</b>: one die, +1 for each Scout
+      token you spend (max 2).</p>
+      <table class="tbl">
+        <tr><td>8+</td><td>+1 Fuel</td></tr>
+        <tr><td>7</td><td>+1 Food</td></tr>
+        <tr><td>6</td><td>+1 Scrap</td></tr>
+        <tr><td>≤5</td><td>nothing</td></tr>
+      </table>
+      <p>A <b>◆</b> zone (6, 12, 17) also pays Treasure. A <b>☢</b> zone
+      <span class="warn">costs 1 Radiation</span> but pays Treasure too — that is the
+      whole bargain of going deep.</p>
+    </div>
+
+    <div>
+      <h3 class="cond">Treasure roll</h3>
+      <table class="tbl">
+        <tr><td>1</td><td>nothing</td></tr>
+        <tr><td>2–3</td><td>+2 Food and +2 Scrap</td></tr>
+        <tr><td>4</td><td>+3 Wrench uses</td></tr>
+        <tr><td>5</td><td>+2 Multitool uses</td></tr>
+        <tr><td>6</td><td>+1 Lucky Charm use</td></tr>
+      </table>
+
+      <h3 class="cond">Changing dice</h3>
+      <p>Repeat as often as you can pay. Tools tick a box instead of spending stores.</p>
+      <table class="tbl">
+        <tr><td>Water</td><td>±1 to one die</td></tr>
+        <tr><td>Food</td><td>reroll one die</td></tr>
+        <tr><td>Scrap</td><td>set one die to any value</td></tr>
+        <tr><td>Fuel</td><td>reroll all unspent dice</td></tr>
+      </table>
+
+      <h3 class="cond">Before the roll</h3>
+      <p><b>Barter</b> once a day: give up any 2 stored resources, take 1 of anything.<br>
+      <b>Decontaminate:</b> 2 Water erases 1 Radiation.<br>
+      <b>Build:</b> at most 2 structures ever.</p>
+    </div>
+
+    <div>
+      <h3 class="cond">Raiders &amp; Upkeep</h3>
+      <p>On days 4, 8 and 12 they demand <b>2</b>, then <b>4</b>, then <b>6</b> resources of
+      any kind. Each marked Shelter and each of your first three Fortify boxes cuts the
+      demand by 1 — but <b>never below half</b>, so the least you can pay is 1, then 2,
+      then 3. <span class="warn">Cannot pay in full → you are dead.</span></p>
+      <p>Upkeep is due <b>every single day</b>: cross off 1 Food or Water.
+      <span class="warn">Cannot pay → you are dead.</span></p>
+      <p><span class="warn">A 4th Radiation kills you.</span> Each one you carry to the end
+      is −10.</p>
+
+      <h3 class="cond">Ending</h3>
+      <p>After day 12, total the score box. Anything still in Stores counts — every
+      resource you burned on upkeep and raiders is score you gave up. That is the game.</p>
+    </div>
+  </div>
+
+  <!-- ================================================== score -->
+  <div class="p">
+    <div class="hd"><span class="cond">Final Score</span>
+      <span class="dice">140 Survivor · 200 Wastelord · 260 Legend</span></div>
+    <div class="bd">
+      <div class="score">
+        <div>
+          <div class="sl"><span>Water left <b>× 3</b></span><span class="v"></span></div>
+          <div class="sl"><span>Food left <b>× 4</b></span><span class="v"></span></div>
+          <div class="sl"><span>Scrap left <b>× 2</b></span><span class="v"></span></div>
+          <div class="sl"><span>Fuel left <b>× 5</b></span><span class="v"></span></div>
+          <div class="sl"><span>Scrap boxes <b>× 3</b></span><span class="v"></span></div>
+        </div>
+        <div>
+          <div class="sl"><span>Water boxes <b>× 7</b></span><span class="v"></span></div>
+          <div class="sl"><span>Food boxes <b>× 11</b></span><span class="v"></span></div>
+          <div class="sl"><span>Fuel boxes <b>× 12</b></span><span class="v"></span></div>
+          <div class="sl"><span>Scout marks <b>× 7</b></span><span class="v"></span></div>
+          <div class="sl"><span>Shelters <b>× 15</b></span><span class="v"></span></div>
+        </div>
+        <div>
+          <div class="sl"><span>Fortify <b>× 2</b> · four <b>+10</b></span><span class="v"></span></div>
+          <div class="sl"><span>Zones — <b>sum their numbers</b></span><span class="v"></span></div>
+          <div class="sl"><span>Zone bonus <b>5→+10 · 8→+20 · 11→+35</b></span><span class="v"></span></div>
+          <div class="sl"><span>Radiation <b>× −10</b></span><span class="v"></span></div>
+        </div>
+      </div>
+      <div class="sl tot"><span class="cond" style="font-size:8pt;">Total</span><span class="v"></span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="cond">Wasteland Scavenger v17 · solo roll-and-write · 3d6 · ~25 min</span>
+    <span>Print at 100% — do not scale to fit.</span>
+  </div>
+
+</div>
+</body>
+</html>
